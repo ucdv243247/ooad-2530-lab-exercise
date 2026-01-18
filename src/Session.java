@@ -8,4 +8,16 @@ public class Session {
         this.venue = venue;
         this.type = type;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getVenue() {
+        return venue;
+    }
+
+    public SessionType getType() {
+        return type;
+    }
 }

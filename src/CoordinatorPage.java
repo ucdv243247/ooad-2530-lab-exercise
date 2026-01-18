@@ -5,8 +5,7 @@ public class CoordinatorPage extends JPanel {
     public CoordinatorPage(SessionController sessionController) {
         setLayout(new BorderLayout());
         JTabbedPane tabbedPane = new JTabbedPane();
-        // tabbedPane.addTab("Registration", new RegistrationPanel());
-        tabbedPane.addTab("Sessions", new SessionsPanel(sessionController));
+        tabbedPane.addTab("Add/Edit Sessions", new SessionsPanel(sessionController));
         tabbedPane.addTab("Result", new ResultPanel());
         add(tabbedPane, BorderLayout.CENTER);
     }
@@ -23,10 +22,12 @@ public class CoordinatorPage extends JPanel {
 
 class SessionsPanel extends JPanel {
     private SessionController sessionController;
+    private DefaultListModel<String> sessionListModel;
+    private JList<String> sessionList;
 
     public SessionsPanel(SessionController sessionController) {
         this.sessionController = sessionController;
-        setLayout(new FlowLayout(FlowLayout.LEFT));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         // Day field
@@ -68,8 +69,27 @@ class SessionsPanel extends JPanel {
                     "Session Created:\nDate: " + date + "\nVenue: " + venue + "\nType: " + type);
             Session newSession = new Session(date, venue, SessionType.valueOf(type));
             sessionController.addSession(newSession);
+            refreshSessionList();
         });
         add(createButton);
+
+        // Sessions list
+        sessionListModel = new DefaultListModel<>();
+        sessionList = new JList<>(sessionListModel);
+        JScrollPane scrollPane = new JScrollPane(sessionList);
+        scrollPane.setBorder(BorderFactory.createTitledBorder("All Sessions"));
+        add(scrollPane);
+
+        // Load existing sessions
+        refreshSessionList();
+    }
+
+    private void refreshSessionList() {
+        sessionListModel.clear();
+        for (Session session : sessionController.getSessions()) {
+            String display = session.getDate() + " | " + session.getVenue() + " | " + session.getType();
+            sessionListModel.addElement(display);
+        }
     }
 }
 

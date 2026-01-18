@@ -10,4 +10,8 @@ public class SessionController {
     public void addSession(Session session) {
         sessions.add(session);
     }
+
+    public List<Session> getSessions() {
+        return sessions;
+    }
 }
