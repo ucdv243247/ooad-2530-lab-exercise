@@ -24,7 +24,8 @@ public class App extends JFrame {
         // They extend JPanel
         // WRITE YOUR PAGE IN A SEPARATE FILE BY EXTENDING JPanel
         // Here TabbedPage is extending JPanel
-        CoordinatorPage coordinatorPage = new CoordinatorPage();
+        SessionController sessionController = new SessionController();
+        CoordinatorPage coordinatorPage = new CoordinatorPage(sessionController);
 
         // Add panels to card layout
         // Give unique name to each page
