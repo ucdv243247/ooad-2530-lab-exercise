@@ -28,10 +28,15 @@ public class App extends JFrame {
         UserController userController = new UserController();
         CoordinatorPage coordinatorPage = new CoordinatorPage(sessionController, userController);
 
+        EvaluationModulePanel evaluationModulePanel = new EvaluationModulePanel();
+        EvaluatorSessionPanel evaluatorSessionPanel = new EvaluatorSessionPanel();
+        EvaluatorPage evaluatorPage = new EvaluatorPage(evaluationModulePanel, evaluatorSessionPanel);
+        
         // Add panels to card layout
         // Give unique name to each page
         mainPanel.add(loginPage, "LOGIN");
         mainPanel.add(coordinatorPage, "Coordinator");
+        mainPanel.add(evaluatorPage, "Evaluator");
 
         add(mainPanel);
 
